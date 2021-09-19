@@ -8,9 +8,11 @@ import hello.core.member.MemberServiceImpl;
 public class MemberApp {
 
     public static void main(String[] args) { // psvm
-        MemberService memberService = new MemberServiceImpl();
+        AppConfig appConfig = new AppConfig();
+        MemberService memberService = appConfig.memberService();
         Member member = new Member(1L/*Long type*/, "memberA", Grade.VIP); //cmd opt v
         memberService.join(member);
+
         Member findMember = memberService.findMember(1L);
         System.out.println("new member = " + member.getName()); //soutv
         System.out.println("find Member = " + findMember.getName());
