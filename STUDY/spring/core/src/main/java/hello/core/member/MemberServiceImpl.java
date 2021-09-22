@@ -2,19 +2,19 @@ package hello.core.member;
 
 public class MemberServiceImpl implements MemberService{
 
-    private final MemberReposiory memberReposiory;
+    private final MemberRepository memberRepository;
 
-    public MemberServiceImpl(MemberReposiory memberReposiory) {
-        this.memberReposiory = memberReposiory;
+    public MemberServiceImpl(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
     }
 
     @Override
     public void join(Member member) {
-        memberReposiory.save(member);
+        memberRepository.save(member);
     }
 
     @Override
     public Member findMember(Long memberId) {
-        return memberReposiory.findById(memberId);
+        return memberRepository.findById(memberId);
     }
 }
