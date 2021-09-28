@@ -9,15 +9,17 @@ import hello.core.member.MemberServiceImpl;
 import hello.core.member.MemoryMemberRepository;
 import hello.core.order.OrderService;
 import hello.core.order.OrderServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+//Configuration 빼면 바이트코드조작 불가능
 @Configuration
 public class AppConfig {
 
     //@Bean memberService -> New MemoryMemberRepository()
     //@Bean orderService -> New MemoryMemberRepository()
-    // 두번 생성됨, 싱글톤 깨지나? => 깨지지않음
+    // 두번 생성됨, 싱글톤 깨지나? => 깨지지않음 (바이트코드 이용)
 
     //예상
     //call AppConfig.memberService
@@ -32,6 +34,9 @@ public class AppConfig {
     //call AppConfig.orderService
 
     // *생성자를 통해 주입, injection*
+
+//    @Autowired MemberRepository memberRepository;
+
     @Bean
     public MemberService memberService() {
         System.out.println("AppConfig.memberService");

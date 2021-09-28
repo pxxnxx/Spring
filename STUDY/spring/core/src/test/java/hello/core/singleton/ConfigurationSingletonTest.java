@@ -31,4 +31,14 @@ public class ConfigurationSingletonTest {
         assertThat(memberService.getMemberRepository()).isSameAs(memberRepository);
         assertThat(orderService.getMemberRepository()).isSameAs(memberRepository);
     }
+
+    @Test
+    void configurationDeep() {
+        ApplicationContext ac = new AnnotationConfigApplicationContext(AppConfig.class);
+        AppConfig bean = ac.getBean(AppConfig.class);
+
+        System.out.println("bean = " + bean);
+        // bean = hello.core.AppConfig$$EnhancerBySpringCGLIB$$f8afebd8@54e22bdd
+        // 스프링이 CGLIB라는 바이트코드 조작 라이브러리 사용하여 임의의 클래스 만들고 그걸 스프링 빈으로 등록
+    }
 }
