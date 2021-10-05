@@ -1,5 +1,8 @@
 package hello.core;
 
+import hello.core.member.MemberRepository;
+import hello.core.member.MemoryMemberRepository;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
@@ -15,4 +18,10 @@ import org.springframework.context.annotation.FilterType;
         )
 
 public class AutoAppConfig {
+
+//        @Bean(name = "memoryMemberRepository")
+//        MemberRepository memberRepository() {
+//                return new MemoryMemberRepository();
+//        }
+        // Overriding bean definition for bean 'memoryMemberRepository' 원래는 수동 빈이 우선순위 가지나 스프링부트에서는 충돌 시 오류 나도록 변경.
 }
