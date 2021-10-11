@@ -41,6 +41,7 @@ public class OrderServiceImpl implements OrderService {
     // OrderServiceImpl 등록 -> 생성자 실행 -> Autowired 단계로 의존관계 주입
     // 생성자 호출 시점에서 한번만 호출되며 불변,필수 의존관계에 사용
     // 생성자가 하나라면 Autowired 생략 가능
+    // final 사용 가능. final은 초기값 실수도 잡아줄 수 있음
     @Autowired
     public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
         this.memberRepository = memberRepository;
