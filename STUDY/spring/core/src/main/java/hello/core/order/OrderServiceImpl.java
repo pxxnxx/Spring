@@ -5,10 +5,11 @@ import hello.core.member.Member;
 import hello.core.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
-@RequiredArgsConstructor // final(필수) 생성자 생략 가능. 의존 관계 추가할 때 편리함
+//@RequiredArgsConstructor // final(필수) 생성자 없이 의존 관계 주입 가능. 의존 관계 추가할 때 편리함
 public class OrderServiceImpl implements OrderService {
 
     private final MemberRepository memberRepository;
@@ -44,11 +45,13 @@ public class OrderServiceImpl implements OrderService {
     // 생성자 호출 시점에서 한번만 호출되며 불변,필수 의존관계에 사용
     // 생성자가 하나라면 Autowired 생략 가능
     // final 사용 가능. final은 초기값 실수도 잡아줄 수 있음
-//    @Autowired
-//    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
-//        this.memberRepository = memberRepository;
-//        this.discountPolicy = discountPolicy;
-//    }
+    // DiscountPolicy rateDiscountPolicy <- 같은 타입여러 빈이 있으면 필드 이름, 파라미터 이름으로 빈 이름을 추가 매칭
+    // @Qualifier("mainDiscountPolicy") 이용하여 빈 지정 가능. 빈 이름 변경하는 것은 아님 @Qualifier 찾는 것으로만 사용하는 것 권장
+    @Autowired
+    public OrderServiceImpl(MemberRepository memberRepository, @Qualifier("mainDiscountPolicy") DiscountPolicy discountPolicy) {
+        this.memberRepository = memberRepository;
+        this.discountPolicy = discountPolicy;
+    }
     // RequiredArgsConstruct 으로 생략
 
     /**일반 메서드 주입*/
