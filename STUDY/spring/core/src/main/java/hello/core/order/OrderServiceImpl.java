@@ -1,5 +1,6 @@
 package hello.core.order;
 
+import hello.core.annotaion.MainDiscountPolicy;
 import hello.core.discount.DiscountPolicy;
 import hello.core.member.Member;
 import hello.core.member.MemberRepository;
@@ -48,7 +49,7 @@ public class OrderServiceImpl implements OrderService {
     // DiscountPolicy rateDiscountPolicy <- 같은 타입여러 빈이 있으면 필드 이름, 파라미터 이름으로 빈 이름을 추가 매칭
     // @Qualifier("mainDiscountPolicy") 이용하여 빈 지정 가능. 빈 이름 변경하는 것은 아님 @Qualifier 찾는 것으로만 사용하는 것 권장
     @Autowired
-    public OrderServiceImpl(MemberRepository memberRepository, @Qualifier("mainDiscountPolicy") DiscountPolicy discountPolicy) {
+    public OrderServiceImpl(MemberRepository memberRepository, /*@Qualifier("mainDiscountPolicy")*/@MainDiscountPolicy DiscountPolicy discountPolicy) {
         this.memberRepository = memberRepository;
         this.discountPolicy = discountPolicy;
     }
