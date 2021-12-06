@@ -236,6 +236,8 @@
     PK는 의미없는 값으로 사용하는 것이 좋음
     ex) MemberProduct의 PK -> Member_ID + Product_ID <- 사용 X
 
+<실전 예제 3 - 다양한 연관관계 매핑>
+    parent - child로 Self Mapping 가능
 
 
 <체크 할만한 실수들>
