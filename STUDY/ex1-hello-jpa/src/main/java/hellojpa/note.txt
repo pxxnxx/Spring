@@ -239,6 +239,50 @@
 <실전 예제 3 - 다양한 연관관계 매핑>
     parent - child로 Self Mapping 가능
 
+<상속관계 매핑>
+    관계형 데이터베이스에는 상속 관계 X
+    슈퍼타입 서브타입 관계라는 모델링 기법이 객체 상속과 유사
+    상속관계 매핑 : 객체의 상속과 구조와 DB의 슈퍼타입 서브타입 관계를 매핑
+
+    JPA 사용하면 조인 전략 <-> 단일 테이블 전략 변경 용이
+
+    조인 전략 <- JPA와 가장 유사
+        @Inheritance strategy JOINED 사용
+        @DiscriminatorColumn 사용하면 Dtype 저장
+        @DiscriminatorValue 사용하면 Dtype 이름 변경 가능
+        장점
+            - 테이블 정규화
+            - 외래 키 참조 무결성 제약조건 활용 가능
+            - 저장 공간 효율화
+        단점
+            - 조회시 조인을 많이 사용, 성능 저하 (큰 문제 아님)
+            - 조회 쿼리가 복잡함
+            - 데이터 저장시 Insert SQL 두번
+
+    단일 테이블 전략
+        @Inheritance strategy SINGLE_TABLE 사용
+        Query 한번만 나감
+        장점
+            - 조인 필요 없어 조회 성능이 빠름
+            - 조회 쿼리가 단순함
+        단점
+            - 자식 엔티티가 매핑한 컬럼은 모두 null 허용 ex) album의 isbn
+            - 단일 테이블에 모든 것을 저장하므로 테이블이 커질 수 있어 느려질 수 있음 (거의 없음)
+
+    구현 클래스마다 테이블 전략
+        Item Class 없앰
+        abstract class로 생성 후 @Inheritance strategy TABLE_PER_CLASS 사용
+        @DiscriminatorColumn 의미 X
+        Item 통해서 하위 테이블 find 할 때 모든 하위 테이블 다 조회해야 함
+        사용하는 것을 권장하지 않음
+        장점
+            - 서브 타입을 명확하게 구분해서 처리할 때 효과적
+            - not null 제약조건 사용 가능
+        단점
+            - 여러 자식 테이블을 함께 조회할 때 성능이 느림 (UNION SQL)
+            - 자식 테이블을 통합해서 쿼리하기 어려움
+            - 추가할 때 처리 할 내용이 많음
 
 <체크 할만한 실수들>
     - @Entity 안붙이는 실수 주의
+    - DB Table이 꼬이는 경우 오류
