@@ -318,6 +318,27 @@
         org.hibernate.LazyinitializationException 예외 발생
         em.find는 문제 X
 
+<즉시 로딩과 지연 로딩>
+    Member class에 외래 키 Team에 @ManyToOne(fetch = FetchType.LAZY) 하면
+    Member find할 때 Team은 Proxy로 반환 (SQL X)
+    실제 Team을 사용하는 시점에 초기화
+
+    같이 자주 사용하면 즉시 로딩 EAGER
+    같이 자주 사용하지 않으면 지연 로딩 LAZY
+
+    주의점
+        가급적 지연 로딩만 사용
+        즉시 로딩을 적용하면 예상하지 못한 SQL이 발생
+        즉시 로딩은 JPQL에서 N+1 문제를 일으킴
+            ex)
+            select * from Member
+            select * from Team where TEAM_ID = xxx
+            Member 1, 2 존재 + Member1 = TeamA, Member2 = TeamB인 경우
+            Member Query 한번 Team Query 두번
+        @ManyToOne, @OneToOne은 기본이 즉시 로딩
+
+    모든 연관관계에 지연 로딩 사용 후 fetch join 이용 권장
+
 <체크 할만한 실수들>
     - @Entity 안붙이는 실수 주의
     - DB Table이 꼬이는 경우 오류 <- 버전 문제였다 왜 1.4.200이 되어있지

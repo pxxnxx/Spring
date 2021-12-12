@@ -14,23 +14,29 @@ public class JpaMain {
         tx.begin();
 
         try {
+
+            Team team = new Team();
+            team.setName("teamA");
+            em.persist(team);
+
             Member member1 = new Member();
             member1.setUsername("member1");
+            member1.setTeam(team);
             em.persist(member1);
-
-            Member member2 = new Member();
-            member2.setUsername("member2");
-            em.persist(member2);
 
             em.flush();
             em.clear();
 
-            Member m1 = em.find(Member.class, member1.getId());
-            Member m2 = em.getReference(Member.class, member2.getId());
+            Member m = em.find(Member.class, member1.getId());
 
-            System.out.println("m1 == m2 :" + (m1.getClass() == m2.getClass()));
-            System.out.println("m1 instanceof Member :" + (m1 instanceof Member));
-            System.out.println("m2 instanceof Member :" + (m2 instanceof Member));
+            // Proxy 상태
+            System.out.println("m.team.class :" + m.getTeam().getClass());
+
+            System.out.println("=============");
+            // 실제 Entity
+            System.out.println(m.getTeam().getName());
+            System.out.println("=============");
+
             tx.commit();
         } catch (Exception e) {
             e.printStackTrace();

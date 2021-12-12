@@ -15,6 +15,10 @@ public class Member extends BaseEntity{
     @Column(name = "USERNAME")
     private String username;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn
+    private Team team;
+
     @OneToMany(mappedBy = "member")
     private List<MemberProduct> memberProducts = new ArrayList<>();
 
@@ -32,5 +36,21 @@ public class Member extends BaseEntity{
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
+    }
+
+    public List<MemberProduct> getMemberProducts() {
+        return memberProducts;
+    }
+
+    public void setMemberProducts(List<MemberProduct> memberProducts) {
+        this.memberProducts = memberProducts;
     }
 }
