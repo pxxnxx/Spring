@@ -1,5 +1,7 @@
-package domain;
+package jpabook.jpashop;
 
+import domain.Address;
+import domain.Order;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,13 +17,12 @@ public class Member {
     @Id @GeneratedValue
     @Column(name = "member_id")
     private Long id;
+    private String username;
 
-    private String name;
-
-    @Embedded
-    private Address address;
-
-    @OneToMany(mappedBy = "member") // 일대다, mapping 된 거울
-    private List<Order> orders = new ArrayList<>();
+//    @Embedded
+//    private Address address;
+//
+//    @OneToMany(mappedBy = "member") // 일대다, mapping 된 거울
+//    private List<Order> orders = new ArrayList<>();
 
 }
