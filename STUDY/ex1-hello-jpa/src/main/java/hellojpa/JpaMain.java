@@ -10,21 +10,17 @@ public class JpaMain {
         EntityManager em = emf.createEntityManager();
 
         EntityTransaction tx = em.getTransaction();
+        tx.begin();
 
         try {
-//            Member findMember = em.find(Member.class, 1L);
+            Member member = em.find(Member.class, 160L);
+            member.setName("AAAA");
 
-            List<Member> result = em.createQuery("select m from Member as m", Member.class)
-                    .setFirstResult(5)
-                    .setMaxResults(8)
-                    .getResultList();
+            em.detach(member);
 
-//          JPQL == table 아닌 Entity 객체 대상 검색
-            for (Member member : result) {
-                System.out.println("member.name = " + member.getName());
-            }
             tx.commit();
         } catch (Exception e) {
+            e.printStackTrace();
             tx.rollback();
         } finally {
             em.close();
