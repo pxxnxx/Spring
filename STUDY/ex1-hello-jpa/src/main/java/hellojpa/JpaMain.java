@@ -12,19 +12,19 @@ public class JpaMain {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
 
-        try {
-            Member member = em.find(Member.class, 160L);
-            member.setName("AAAA");
-
-            em.detach(member);
-
-            tx.commit();
-        } catch (Exception e) {
-            e.printStackTrace();
-            tx.rollback();
-        } finally {
-            em.close();
-        }
+//        try {
+//            Member member = em.find(Member.class, 160L);
+//            member.setName("AAAA");
+//
+//            em.detach(member);
+//
+//            tx.commit();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            tx.rollback();
+//        } finally {
+//            em.close();
+//        }
 
         emf.close();
 
