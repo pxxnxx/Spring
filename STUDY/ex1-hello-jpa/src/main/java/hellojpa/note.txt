@@ -48,3 +48,19 @@
     @Column(unique = true, length = 10) 이런식으로 조건 줄 수 있음
     JPA 실행 로직에 영향 주지 않아 사용해도 괜찮음
 
+<필드와 컬럼 매핑>
+    @Column - 컬럼 매핑
+        nullable = false <- null값 허용 X
+        unique는 주로 @Table에서 이용
+    @Temporal - 날짜 타입 매핑
+        TemporalType 3개 있음 매핑 필요
+        LocalDate, LocalDateTime 이용 시 @Temporal 매핑 필요 X
+    @Enumerated - Enum 타입 매핑
+        Ordinal - Enum 순서를 데이터베이스에 저장
+        String - Enum 이름을 데이터베이스에 저장
+        기본 - Ordinal, 순서가 바뀔 수 있으니 String 사용 필수
+    @Lob - BLOB, CLOB 매핑
+        Varchar 넘어서는 컨텐츠 넣고 싶으면 이용 // 문자열일경우 Clob
+    @Transient - 특정 필드를 컬럼에 매핑하지 않음
+
+
