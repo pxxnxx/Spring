@@ -63,4 +63,16 @@
         Varchar 넘어서는 컨텐츠 넣고 싶으면 이용 // 문자열일경우 Clob
     @Transient - 특정 필드를 컬럼에 매핑하지 않음
 
+<기본 키 매핑>
+    직접 할당 : @Id만 사용
+    자동 생성 : @GeneratedValue
+        Identity, Sequence, Table, Auto
+        Identity <- DB에 들어가야 Id값 알 수 있음. 그래서 Persist할 때 Query (큰 문제는 X)
+        Sequence <- Sequence만 받아와서 바로 Query X
+        Table <-
 
+        allocationSize 이용하면 DB에 미리 올려놓아서 네트워크 연결 여러번 안해도 됨
+            - Sequence, Table에서 이용. 동시성 문제 X
+    기본 키 제약 조건 : null 아님, 유일, 변하면 안됨.
+        만족하는 자연키 찾기 어려움 -> 대체키 사용
+    권장 : Long형 + 대체키 + 키 생성전략 사용
