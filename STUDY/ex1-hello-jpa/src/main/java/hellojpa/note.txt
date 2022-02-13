@@ -85,3 +85,9 @@
         - 테이블의 외래키를 객체에 그대로 가져옴
         - 객체 그래프 탐색이 불가능
         - 참조가 없으므로 UML도 잘못됨
+
+<단방향 연관관계>
+    select * from member m join team t on m.team_id = t.team_id;
+    객체를 테이블에 맞추어 데이터 중심으로 모델링하면 협력 관계를 만들 수 없음.
+    단방향 연관관계
+    member 입장에서 Many라서 @ManyToOne, @JoinColumn 이용하면 매핑 가능
