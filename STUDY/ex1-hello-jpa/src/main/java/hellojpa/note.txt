@@ -96,7 +96,7 @@
 <양방향 연관관계와 연관관계의 주인 1 - 기본>
     양방향 객체 연관관계로 바꾸어도 테이블 연관관계는 차이 X
     team 입장에서는 One이라서 @OneToMany, mappedBy로 매핑된 요소 지정
-    flush, clear해야 값이 나옴 <- 이유 알아볼 것
+    flush, clear해야 값이 나옴 <- 이유 : 1차 캐시에는 컬렉션 값이 없음
     객체는 단방향 매핑이 신경쓸 것이 많이 없음
 
     *mappedBy 중요*
@@ -112,3 +112,21 @@
     주인만이 외래 키를 관리
     주인은 mappedBy 속성 사용 X
     외래 키가 있는 곳을 주인으로 정해야 함. (N:1 의 N)
+
+<양방향 연관관계와 연관관계의 주인 2 - 주의점, 정리>
+    member가 owner이기 때문에
+    team.getMembers().add(member) X
+    member.setTeam(team) O
+    순수 객체 상태 고려해서 둘다 입력하는 것을 권장
+        -> flush, clear 없어도 값이 나옴 (1차 캐시에 컬렉션 저장)
+    연관관계 편의 메소드 생성 권장
+        -> setTeam에 team.getMembers().add(this) 추가
+    setTeam 대신 addMember 이용해도 되지만 둘 중 하나만 이용할 것
+    양방향 매핑시 무한 루프 ex) toString, lombok, JSON 생성 라이브러리
+    Entity는 Controller로 반환 X
+
+    정리
+        단방향 매핑만으로도 이미 연관관계 매핑은 완료
+        양방향 매핑은 반대 방향으로 조회 기능이 추가된 것 뿐
+        JPQL에서 역방향으로 탐색할 일이 많음
+        단방향 매핑을 잘 하고 양방향은 필요할 때 추가해도 됨
