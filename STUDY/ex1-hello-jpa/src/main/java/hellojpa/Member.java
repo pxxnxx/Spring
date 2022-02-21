@@ -13,9 +13,6 @@ public class Member {
     @Column(name = "USERNAME")
     private String username;
 
-//    @Column(name = "TEAM_ID")
-//    private Long temlId;
-
     @ManyToOne
     @JoinColumn(name = "TEAM_ID")
     private Team team;
@@ -45,11 +42,4 @@ public class Member {
         team.getMembers().add(this);
     }
 
-    //    public Long getTemlId() {
-//        return temlId;
-//    }
-//
-//    public void setTemlId(Long temlId) {
-//        this.temlId = temlId;
-//    }
 }
